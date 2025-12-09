@@ -4,28 +4,34 @@ public class CommunalTask extends Action {
 
     public enum Status { PENDING, COMPLETED }
 
-    private String taskName;
+    private CommunalTaskType type;
     private Status status;
 
     public CommunalTask(UUID actionId,
-                        String taskName,
-                        String description,
-                        int pointsAwarded,
+                        CommunalTaskType type,
                         Resident resident) {
-        super(actionId, description, pointsAwarded, resident);
-        this.taskName = taskName;
+        super(actionId, type.getDescription(), type.getBasePoints(), resident);
+        this.type = type;
         this.status = Status.PENDING;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public CommunalTaskType getType()
+    {
+        return type;
     }
 
-    public Status getStatus() {
+    public Status getStatus()
+    {
         return status;
     }
 
-    public void complete() {
+    public String getTaskName()
+    {
+        return type.getName();
+    }
+
+    public void complete()
+    {
         this.status = Status.COMPLETED;
     }
 }
